@@ -23,6 +23,9 @@ class Untitled(unittest.TestCase):
         driver.find_element_by_link_text(u"Войти").click()
         try: self.assertEqual("sv40", driver.find_element_by_link_text("sv40").text)
         except AssertionError as e: self.verificationErrors.append(str(e))
+        driver.find_element_by_xpath("//div[@id='ng-app']/div[2]/div/div/div/div").click()
+        try: self.assertEqual(u"Список покупок", driver.find_element_by_xpath("//div[@id='ng-app']/div[2]/div/div/div/div").text)
+        except AssertionError as e: self.verificationErrors.append(str(e))
     
     def tearDown(self):
         self.driver.quit()
