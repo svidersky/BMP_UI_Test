@@ -27,7 +27,6 @@ class Untitled(unittest.TestCase):
         try: self.assertEqual(u"Список покупок", driver.find_element_by_xpath("//div[@id='ng-app']/div[2]/div/div/div/div").text)
         except AssertionError as e: self.verificationErrors.append(str(e))
     
-    
     def tearDown(self):
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)
