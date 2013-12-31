@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*- 
 
 from selenium import webdriver
-import unittest, time, re
+import unittest, time
 
 class Untitled(unittest.TestCase):
     def setUp(self):
@@ -14,15 +14,15 @@ class Untitled(unittest.TestCase):
     
     def test_all_fields_empty(self):
         driver = self.driver
-        driver.get(self.base_url + "/contacts")
-        driver.find_element_by_link_text("RU").click()
-        driver.find_element_by_link_text("EN").click()
-        driver.find_element_by_link_text("Log in").click()
+        driver.get(self.base_url + "/press")
+        driver.find_element_by_link_text("Вход").click()
         driver.find_element_by_css_selector("#login > a.button.blue").click()
-        print "You did not provide any details for authentication."
-        print driver.find_element_by_id("login_base_error")
-        try: self.assertEqual("You did not provide any details for authentication.", driver.find_element_by_id("login_base_error").text)
-        except AssertionError as e: self.verificationErrors.append(str(e))
+        for i in range(60):
+            try:
+                if u"Не заполнены обязательные поля." == driver.find_element_by_id("login_base_error").text: break
+            except: pass
+            time.sleep(1)
+        else: self.fail("time out")
    
     def tearDown(self):
         self.driver.quit()
