@@ -1,0 +1,32 @@
+#!/usr/bin/env python 
+# -*- coding: utf-8 -*- 
+
+from selenium import webdriver
+import unittest, time
+
+class Untitled(unittest.TestCase):
+    def setUp(self):
+        self.driver = webdriver.Firefox()
+        self.driver.implicitly_wait(7)
+        self.base_url = "http://buymeapie.com/"
+        self.verificationErrors = []
+        self.accept_next_alert = True
+    
+    def test_all_fields_empty(self):
+        driver = self.driver
+        driver.get(self.base_url + "/press")
+        driver.find_element_by_link_text("Вход").click()
+        driver.find_element_by_css_selector("#login > a.button.blue").click()
+        for i in range(60):
+            try:
+                if u"Не заполнены обязательные поля." == driver.find_element_by_id("login_base_error").text: break
+            except: pass
+            time.sleep(1)
+        else: self.fail("time out")
+   
+    def tearDown(self):
+        self.driver.quit()
+        self.assertEqual([], self.verificationErrors)
+
+if __name__ == "__main__":
+    unittest.main()
