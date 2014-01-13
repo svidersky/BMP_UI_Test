@@ -10,20 +10,19 @@ class Untitled(unittest.TestCase):
         self.driver.implicitly_wait(7)
         self.base_url = "http://buymeapie.com/"
         self.verificationErrors = []
-        self.accept_next_alert = True
     
-    def test_all_fields_empty(self):
+    def test_all_inputs_empty(self):
         driver = self.driver
         driver.get(self.base_url + "/press")
-        driver.find_element_by_link_text("Вход").click()
-        driver.find_element_by_css_selector("#login > a.button.blue").click()
+        driver.find_element_by_link_text(u"Вход").click()
+        driver.find_element_by_link_text(u"Войти").click()
         for i in range(60):
             try:
                 if u"Не заполнены обязательные поля." == driver.find_element_by_id("login_base_error").text: break
             except: pass
             time.sleep(1)
         else: self.fail("time out")
-   
+     
     def tearDown(self):
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)
