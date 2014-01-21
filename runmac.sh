@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cd /Users/sergey/Documents/BMP_UI_Test/Account
+cd /Users/sergey/Documents/BMP_UI_Test/
 
-py.test
+py.test --junitxml=xml4jenkins.xml
