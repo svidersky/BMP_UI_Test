@@ -6,7 +6,7 @@ import unittest, time, re
 
 class Untitled(unittest.TestCase):
     def setUp(self):
-        self.driver = new RemoteWebDriver(new URL("http://jenkins.localhost:4444/wd/hub"), capability);
+        self.driver = webdriver.Remote(desired_capabilities=webdriver.DesiredCapabilities.CHROME)
         self.driver.implicitly_wait(10)
         self.base_url = "http://buymeapie.com"
         self.verificationErrors = []
