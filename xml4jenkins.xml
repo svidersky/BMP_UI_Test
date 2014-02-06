@@ -1,1 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?><testsuite errors="0" failures="0" name="pytest" skips="0" tests="1" time="26.915"><testcase classname="test_Log_in_successful.Untitled" name="test_Log_in_successful" time="26.0580229759"/></testsuite>
+<?xml version="1.0" encoding="utf-8"?><testsuite errors="1" failures="0" name="pytest" skips="0" tests="0" time="0.058"><testcase classname="" name="test_Log_in_successful" time="0"><failure message="collection failure">/Library/Python/2.7/site-packages/_pytest/python.py:451: in _importtestmodule
+&gt;           mod = self.fspath.pyimport(ensuresyspath=True)
+/Library/Python/2.7/site-packages/py/_path/local.py:620: in pyimport
+&gt;           __import__(modname)
+E             File &quot;/Users/sergey/Documents/BMP_UI_Test/test_Log_in_successful.py&quot;, line 9
+E               Selenium selenium = new DefaultSelenium(&quot;localhost&quot;, 4444, &quot;*firefox&quot;, &quot;http://jenkins-ci.org/&quot;);
+E                               ^
+E           SyntaxError: invalid syntax</failure></testcase></testsuite>
