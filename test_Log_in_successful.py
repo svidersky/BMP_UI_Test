@@ -7,7 +7,7 @@ import unittest, time, re
 class Untitled(unittest.TestCase):
     def setUp(self):
         self.verificationErrors = []
-        self.selenium = selenium("localhost", 4444, "*chrome", "http://buymeapie.com/")
+        self.selenium = selenium("localhost", 4444, "*firefox", "http://buymeapie.com/")
         self.selenium.start()
     
     def test_untitled(self):
