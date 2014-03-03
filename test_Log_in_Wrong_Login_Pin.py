@@ -4,14 +4,14 @@ from config import *
 from selenium import webdriver
 import unittest, time
 
-class Untitled(unittest.TestCase):
+class Setting_up(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(implicitly_wait)
         self.base_url = bmp_url
         self.verificationErrors = []
     
-    def test_untitled(self):
+    def test_Wrong_login_pin(self):
         driver = self.driver
         driver.get(self.base_url + "/press")
         driver.find_element_by_link_text(u"Вход").click()
