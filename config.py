@@ -26,10 +26,29 @@ user_bad_pass = '1234'
 
 # implicitly_wait
 
-implicitly_wait = 7
+impl_wait = 7
 
 # ---------------------
 
-# driver's init
+# self.driver's init
 
-driver = webdriver.Firefox()
+class Init(object):
+    def __init__(self):
+        pass
+        
+    def driver_init(self):    
+        current_driver = webdriver.Firefox()
+        return current_driver
+    
+class Auth(object):
+    driver = webdriver.Firefox()
+    def __init__(self):
+        pass
+    def authorizing(self):
+        self.driver.get(base_url + "/press")
+        self.driver.find_element_by_link_text(u"Вход").click()
+        self.driver.find_element_by_id("login_login").clear()
+        self.driver.find_element_by_id("login_login").send_keys(user_good_login)
+        self.driver.find_element_by_id("login_password").clear()
+        self.driver.find_element_by_id("login_password").send_keys(user_good_pass)
+        self.driver.find_element_by_css_selector("#login > a.button.blue").click()

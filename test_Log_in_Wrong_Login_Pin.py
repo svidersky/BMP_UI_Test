@@ -5,8 +5,9 @@
 
 from config import *
 import time
-
-driver.implicitly_wait(implicitly_wait)
+driver = Init()
+driver = driver.driver_init()
+driver.implicitly_wait(impl_wait)
 
 # Проверка с несуществующим логином и пином
 
