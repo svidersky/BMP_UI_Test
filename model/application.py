@@ -43,17 +43,15 @@ class Application(object):
             assert user.username in self.internal_page.link_user_login.text
 
         except:
-            assert self.text_messages.check_login_pin_text in self.internal_page.login_login_error.text
+            assert self.text_messages.login_check_pin_text in self.internal_page.login_login_error.text
 
     def signup(self, user):
         sp = self.internal_page
         sp.header_button_signup.click()
         sp.signup_login_field.send_keys(user.username)
-        time.sleep(1)
         sp.signup_pin_field.send_keys(Keys.COMMAND, "a")
         sp.signup_pin_field.send_keys(Keys.DELETE)
         sp.signup_pin_field.send_keys(user.password)
-        time.sleep(1)
         sp.signup_email_field.send_keys(user.email)
         sp.user_subscribed_checkbox.click()
         sp.signup_button.click()
