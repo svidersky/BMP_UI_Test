@@ -1,25 +1,67 @@
-from php4dvd.pages.page import Page
-from selenium.webdriver.common.by import By
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from pages.page import Page
 
 
 class InternalPage(Page):
 
     @property
-    def logout_button(self):
-        return self.driver.find_element_by_css_selector("nav a[href $= '?logout']")
+    def header_button_signup(self):
+        return self.driver.find_element_by_id("header_button_signup")
 
     @property
-    def add_film_button(self):
-        return self.driver.find_element_by_css_selector("nav a[href $= '?go=add']")
+    def signupbox_link_login(self):
+        return self.driver.find_element_by_id("signupbox_link_login")
 
     @property
-    def user_profile_link(self):
-        return self.driver.find_element_by_css_selector("nav a[href $= '?go=profile']")
+    def login_field(self):
+        return self.driver.find_element_by_id("login_login")
 
     @property
-    def user_management_link(self):
-        return self.driver.find_element_by_css_selector("nav a[href $= '?go=users']")
+    def password_field(self):
+        return self.driver.find_element_by_id("login_password")
 
     @property
-    def is_this_page(self):
-        return self.is_element_visible((By.CSS_SELECTOR, "nav"))
+    def login_button(self):
+        return self.driver.find_element_by_id("button_login")
+
+    @property
+    def signup_button(self):
+        return self.driver.find_element_by_id("button_signup")
+
+    @property
+    def link_user_login(self):
+        return self.driver.find_element_by_id("link_user_login")
+
+    @property
+    def editaccount_button(self):
+        return self.driver.find_element_by_id("button_editaccount")
+
+    @property
+    def exit_button(self):
+        return self.driver.find_element_by_id("button_exit")
+
+    @property
+    def login_password_error(self):
+        return self.driver.find_element_by_id("login_password_error")
+
+    @property
+    def login_login_error(self):
+        return self.driver.find_element_by_id("login_login_error")
+
+    @property
+    def signup_login_field(self):
+        return self.driver.find_element_by_id("signup_login")
+
+    @property
+    def signup_pin_field(self):
+        return self.driver.find_element_by_id("signup_pin")
+
+    @property
+    def signup_email_field(self):
+        return self.driver.find_element_by_id("signup_email")
+
+    @property
+    def user_subscribed_checkbox(self):
+        return self.driver.find_element_by_name("user[subscribed]")

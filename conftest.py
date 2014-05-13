@@ -1,12 +1,11 @@
 import pytest
 from model.application import Application
 from selenium import webdriver
-import pytest
 
 
 def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="firefox", help="browser type")
-    parser.addoption("--base_url", action="store", default="http://localhost/php4dvd/", help="base URL")
+    parser.addoption("--base_url", action="store", default="http://buymeapie.com/press", help="base URL")
 
 
 @pytest.fixture(scope="session")
@@ -29,4 +28,3 @@ def app(request, browser_type, base_url):
         driver = webdriver.Ie()
     request.addfinalizer(driver.quit)
     return Application(driver, base_url)
-

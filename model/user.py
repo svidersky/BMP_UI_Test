@@ -6,12 +6,12 @@ class User(object):
         self.email = email
 
     @classmethod
-    def Admin(cls):
-        return cls(username="admin", password="admin")
+    def user_0000(cls):
+        return cls(username="0000", password="0000")
 
     @classmethod
     def random(cls):
-        from random import randint
+        from random import randrange, randint
         return cls(username="user" + str(randint(0, 1000000)),
-                   password="pass" + str(randint(0, 1000000)),
-                   email="user" + str(randint(0, 1000000)) + "@test.com")
+                   password= randrange(0000, 9999, 1),
+                   email="user" + str(randint(0, 1000000)) + "@no-spam.ws")
