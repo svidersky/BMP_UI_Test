@@ -60,7 +60,7 @@ class Application(object):
             assert user.username in self.internal_page.link_user_login.text
 
         except:
-            pass
+            assert self.text_messages.login_error_blank in self.internal_page.signup_login_error.text
 
     def logout(self):
         self.internal_page.link_user_login.click()
@@ -72,7 +72,7 @@ class Application(object):
             assert user.username in self.internal_page.link_user_login.text
 
         except:
-            assert self.text_messages.check_login_pin_text in self.internal_page.login_login_error.text
+            assert self.text_messages.login_check_pin_text in self.internal_page.login_login_error.text
 
     def ensure_login_as(self, user):
         element = self.wait.until(visibility_of_element_located((By.CSS_SELECTOR, "nav, #loginform")))

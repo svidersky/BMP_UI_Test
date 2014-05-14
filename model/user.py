@@ -12,6 +12,10 @@ class User(object):
     @classmethod
     def random(cls):
         from random import randrange, randint
-        return cls(username="user" + str(randint(0, 1000000)),
+        return cls(username="test" + str(randint(0, 1000000)),
                    password= randrange(0000, 9999, 1),
-                   email="user" + str(randint(0, 1000000)) + "@no-spam.ws")
+                   email="test" + str(randint(0, 1000000)) + "@no-spam.ws")
+
+    @classmethod
+    def null(cls):
+        return cls(username="", password="", email="")

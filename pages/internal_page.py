@@ -43,14 +43,6 @@ class InternalPage(Page):
         return self.driver.find_element_by_id("button_exit")
 
     @property
-    def login_password_error(self):
-        return self.driver.find_element_by_id("login_password_error")
-
-    @property
-    def login_login_error(self):
-        return self.driver.find_element_by_id("login_login_error")
-
-    @property
     def signup_login_field(self):
         return self.driver.find_element_by_id("signup_login")
 
@@ -65,3 +57,29 @@ class InternalPage(Page):
     @property
     def user_subscribed_checkbox(self):
         return self.driver.find_element_by_name("user[subscribed]")
+
+# errors ids
+
+    @property
+    def signup_login_error(self):
+        return self.driver.find_element_by_id("signup_login_error")
+
+    @property
+    def signup_email_error(self):
+        return self.driver.find_element_by_id("signup_email_error")
+
+    @property
+    def signup_pin_error(self):
+        return self.driver.find_element_by_id("signup_pin_error")
+
+    @property
+    def signup_pin_error(self):
+        return self.driver.find_element_by_id("login_base_error")
+
+    @property
+    def login_password_error(self):
+        return self.driver.find_element_by_id("login_password_error")
+
+    @property
+    def login_login_error(self):
+        return self.driver.find_element_by_id("login_login_error")
