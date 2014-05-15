@@ -73,10 +73,6 @@ class InternalPage(Page):
         return self.driver.find_element_by_id("signup_pin_error")
 
     @property
-    def signup_pin_error(self):
-        return self.driver.find_element_by_id("login_base_error")
-
-    @property
     def login_password_error(self):
         return self.driver.find_element_by_id("login_password_error")
 
