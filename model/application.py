@@ -17,10 +17,11 @@ from selenium.webdriver.support.expected_conditions import *
 import time
 
 
+
 class Application(object):
     def __init__(self, driver, base_url):
         driver.get(base_url)
-        self.wait = WebDriverWait(driver, 5)
+        self.wait = WebDriverWait(driver, 3)
         self.page = Page(driver, base_url)
         self.login_page = LoginPage(driver, base_url)
         self.text_messages = TextMessages(driver, base_url)
@@ -29,7 +30,6 @@ class Application(object):
         self.add_film_page = AddFilmPage(driver, base_url)
         self.film_description_page = FilmDescriptionPage(driver, base_url)
         self.main_page = MainPage(driver, base_url)
-
 
     def login(self, user):
         lp = self.internal_page
@@ -49,6 +49,7 @@ class Application(object):
         sp = self.internal_page
         sp.header_button_signup.click()
         sp.signup_login_field.send_keys(user.username)
+        time.sleep(1)
         sp.signup_pin_field.send_keys(Keys.COMMAND, "a")
         sp.signup_pin_field.send_keys(Keys.DELETE)
         sp.signup_pin_field.send_keys(user.password)
@@ -60,7 +61,12 @@ class Application(object):
             assert user.username in self.internal_page.link_user_login.text
 
         except:
-            assert self.text_messages.login_error_blank in self.internal_page.signup_login_error.text
+            if self.internal_page.signup_login_error.text != "":
+                assert self.text_messages.login_error_blank in self.internal_page.signup_login_error.text
+            if self.internal_page.signup_pin_error.text != "":
+                assert self.text_messages.pin_error_blank in self.internal_page.signup_pin_error.text
+            if self.internal_page.signup_email_error.text != "":
+                assert self.text_messages.email_error_blank in self.internal_page.signup_email_error.text
 
     def logout(self):
         self.internal_page.link_user_login.click()
