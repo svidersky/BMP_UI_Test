@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 class User(object):
 
     def __init__(self, username="", password="", email=""):
@@ -19,3 +22,11 @@ class User(object):
     @classmethod
     def null(cls):
         return cls(username="", password="", email="")
+
+
+    @classmethod
+    def incorrect(cls):
+        return cls(username=u"абвг",
+                   password= u"абвг",
+                   email=u"test" + "no-spam.ws")
+
