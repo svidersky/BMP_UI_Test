@@ -48,9 +48,12 @@ class Application(object):
 
     def login_failed(self):
         if self.internal_page.login_base_error.text != "":
-            assert self.text_messages.login_base_error_blank_field in self.internal_page.login_base_error.text
+            assert self.internal_page.login_base_error.text != ""
         if self.internal_page.login_login_error.text != "":
-            assert self.text_messages.login_check_pin_text in self.internal_page.login_login_error.text
+            assert self.internal_page.login_login_error.text != ""
+        if self.internal_page.login_pin_error.text !="":
+            assert self.internal_page.login_pin_error.text != ""
+
 
 
     def signup(self, user):
