@@ -5,6 +5,7 @@ from model.user import User
 from selenium.webdriver.common.keys import Keys
 from pages.page import Page
 from pages.internal_page import InternalPage
+from pages.lists_page import ListPage
 from pages.login_page import LoginPage
 from pages.user_management_page import UserManagementPage
 from pages.add_film_page import AddFilmPage
@@ -27,6 +28,7 @@ class Application(object):
         self.internal_page = InternalPage(driver, base_url)
         self.user_management_page = UserManagementPage(driver, base_url)
         self.add_film_page = AddFilmPage(driver, base_url)
+        self.list_page = ListPage(driver, base_url)
         self.film_description_page = FilmDescriptionPage(driver, base_url)
         self.main_page = MainPage(driver, base_url)
 
@@ -84,6 +86,14 @@ class Application(object):
     def logout(self):
         self.internal_page.link_user_login.click()
         self.internal_page.exit_button.click()
+
+    def add_product(self):
+        lp = self.list_page
+        self.wait.until(presence_of_element_located((By.ID, "input_product")))
+        lp.input_product.click()
+        lp.input_product.send_keys("Test")
+        lp.input_product.send_keys(Keys.RETURN)
+        assert self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),'Test')]")))
 
     def ensure_logged_as(self, user):
         try:

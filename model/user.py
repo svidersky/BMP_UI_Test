@@ -30,3 +30,7 @@ class User(object):
                    password= u"абвг",
                    email=u"test" + "no-spam.ws")
 
+    @classmethod
+    def data_to_change(cls):
+        return cls(password="1234", email="changed@email.com")
+
