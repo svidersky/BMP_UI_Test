@@ -26,6 +26,7 @@ class Application(object):
 
     def login(self, user):
         lp = self.internal_page
+        self.wait.until(presence_of_element_located((By.ID, "header_button_signup")))
         lp.header_button_signup.click()
         lp.signupbox_link_login.click()
         lp.login_field.send_keys(Keys.COMMAND, "a")
@@ -47,8 +48,6 @@ class Application(object):
             assert self.internal_page.login_login_error.text != ""
         if self.internal_page.login_pin_error.text !="":
             assert self.internal_page.login_pin_error.text != ""
-
-
 
     def signup(self, user):
         sp = self.internal_page
@@ -86,3 +85,18 @@ class Application(object):
         lp.add_product_field.send_keys("Test")
         lp.add_product_field.send_keys(Keys.RETURN)
         assert self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),'Test')]")))
+
+    def change_pin(self, user_pin):
+        ip = self.internal_page
+        self.wait.until(presence_of_element_located((By.ID, "link_user_login")))
+        self.internal_page.link_user_login.click()
+        self.internal_page.editaccount_button.click()
+        ip.editaccount_pin_field.send_keys(Keys.COMMAND, "a")
+        ip.editaccount_pin_field.send_keys(Keys.DELETE)
+        ip.editaccount_pin_field.send_keys(user_pin.password)
+        ip.editaccountbox_button_save.click()
+
+    def close_account_window(self):
+        ip = self.internal_page
+        self.wait.until(presence_of_element_located((By.ID, "loginbox_close")))
+        ip.loginbox_close.click()

@@ -13,6 +13,10 @@ class User(object):
         return cls(username="0000", password="0000")
 
     @classmethod
+    def user_0000_pin_1111(cls):
+        return cls(username="0000", password="1111")
+
+    @classmethod
     def random(cls):
         from random import randrange, randint
         return cls(username="test" + str(randint(0, 1000000)),
