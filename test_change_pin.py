@@ -7,7 +7,6 @@ def test_change_pin(app):
     app.change_pin(User.user_0000_pin_1111())
     app.logout()
     app.login(User.user_0000())
-    time.sleep(1)
     app.close_account_window()
     time.sleep(1)
     app.login(User.user_0000_pin_1111())
