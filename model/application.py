@@ -100,3 +100,27 @@ class Application(object):
         ip = self.internal_page
         self.wait.until(presence_of_element_located((By.ID, "loginbox_close")))
         ip.loginbox_close.click()
+
+    def change_email(self, user_email):
+        ip = self.internal_page
+        self.wait.until(presence_of_element_located((By.ID, "link_user_login")))
+        self.internal_page.link_user_login.click()
+        self.internal_page.editaccount_button.click()
+        ip.editaccount_email_field.send_keys(Keys.COMMAND, "a")
+        ip.editaccount_email_field.send_keys(Keys.DELETE)
+        ip.editaccount_email_field.send_keys(user_email.email)
+        ip.editaccountbox_button_save.click()
+
+    def remember_pin(self, email_to_send_pin):
+        ip = self.internal_page
+        self.wait.until(presence_of_element_located((By.ID, "header_button_signup")))
+        ip.header_button_signup.click()
+        ip.signupbox_link_login.click()
+        self.wait.until(presence_of_element_located((By.ID, "logibox_link_remember")))
+        ip.logibox_link_remember.click()
+        self.wait.until(presence_of_element_located((By.ID, "remember_error")))
+        ip.remember_error_field.click()
+        ip.remember_error_field.send_keys(email_to_send_pin.email)
+        ip.button_get_pin.click()
+
+

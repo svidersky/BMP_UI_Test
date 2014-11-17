@@ -55,7 +55,7 @@ class InternalPage(Page):
         return self.driver.find_element_by_id("button_get_pin")
 
     @property
-    def remember_error(self):
+    def remember_error_field(self):
         return self.driver.find_element_by_id("remember_error")
 
     @property
@@ -116,3 +116,7 @@ class InternalPage(Page):
     @property
     def login_base_error(self):
         return self.driver.find_element_by_id("login_base_error")
+
+    @property
+    def logibox_link_remember(self):
+        return self.driver.find_element_by_id("logibox_link_remember")

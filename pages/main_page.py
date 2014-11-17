@@ -10,3 +10,4 @@ class MainPage(InternalPage):
     @property
     def film_found(self):
         return self.driver.find_element_by_css_selector("div.nocover")
+
