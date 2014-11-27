@@ -7,3 +7,28 @@ class ListPage(InternalPage):
     def add_product_field(self):
         return self.driver.find_element_by_id("input_product")
 
+
+    @property
+    def test_product(self):
+        return self.driver.find_element_by_id("//div[contains(@class,'product-item-title') and contains(text(),'Test')]")
+
+    @property
+    def button_delete_list(self):
+        return self.driver.find_element_by_id("button_delete_list")
+
+    @property
+    def button_add_list(self):
+        return self.driver.find_element_by_id("button_add_list")
+
+
+    @property
+    def button_add_list(self):
+        return self.driver.find_element_by_id("button_add_list")
+
+    @property
+    def button_edit_list(self):
+        return self.driver.find_element_by_id("button_edit_list")
+
+    @property
+    def input_list_name(self):
+        return self.driver.find_element_by_id("")

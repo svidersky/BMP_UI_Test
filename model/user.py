@@ -22,7 +22,7 @@ class User(object):
 
     @classmethod
     def user_actions(cls):
-        return cls(username="wDof77tE", password="3951")
+        return cls(username="", password="")
 
     @classmethod
     def random(cls):

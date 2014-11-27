@@ -11,19 +11,27 @@ from BMP_UI_Test2.pages.actions_page import ActionsPage
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.expected_conditions import *
+from selenium.webdriver.common.action_chains import ActionChains
 import time
 
 
 class Application(object):
     def __init__(self, driver, base_url):
         driver.get(base_url)
-        self.wait = WebDriverWait(driver, 10)
+        self.wait = WebDriverWait(driver, 15)
         self.page = Page(driver, base_url)
         self.text_messages = TextMessages(driver, base_url)
         self.internal_page = InternalPage(driver, base_url)
         self.list_page = ListPage(driver, base_url)
         self.main_page = MainPage(driver, base_url)
         self.actions_page = ActionsPage(driver, base_url)
+        self.action_chains = ActionChains(driver)
+
+
+    def move_to_element(self, element):
+        ac = self.action_chains
+        ac.move_to_element(element)
+        ac.perform()
 
     def login(self, user):
         lp = self.internal_page
@@ -79,13 +87,43 @@ class Application(object):
         self.internal_page.link_user_login.click()
         self.internal_page.exit_button.click()
 
-    def add_product(self):
+    def add_product(self, product):
         lp = self.list_page
         self.wait.until(presence_of_element_located((By.ID, "input_product")))
         lp.add_product_field.click()
-        lp.add_product_field.send_keys("Test")
+        lp.add_product_field.send_keys(product.name + " " + product.amount)
         lp.add_product_field.send_keys(Keys.RETURN)
-        assert self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),'Test')]")))
+        lp.add_product_field.send_keys(Keys.RETURN)
+        assert self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),"+ product.name +")]")))
+
+    def buy_product(self, product):
+        lp = self.list_page
+        self.wait.until(presence_of_element_located((By.ID, "input_product")))
+        self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),"+ product.name +")]"))).click()
+        assert self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),"+ product.name +")]")))
+
+    def create_list(self):
+        lp = self.list_page
+        self.wait.until(presence_of_element_located((By.ID, "button_add_list")))
+        lp.button_add_list.click()
+        self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-list-name')]")))
+        self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-list-empty')]")))
+
+    def rename_list(self):
+        lp = self.list_page
+        self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-list-name')]")))
+        self.move_to_element(self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-list-name')]"))))
+        lp.button_edit_list.click()
+        lp.input_list_name.send_keys(Keys.COMMAND, "a")
+        lp.input_list_name.send_keys(Keys.DELETE)
+        lp.input_list_name.send_keys("Test list")
+        lp.add_product_field.send_keys(Keys.RETURN)
+
+    def delete_list(self):
+        lp = self.list_page
+        self.move_to_element(self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-list-name') and contains(text(),'Список покупок')]"))))
+        self.wait.until(presence_of_element_located((By.ID, "button_delete_list")))
+        lp.button_delete_list.click()
 
     def change_pin(self, user_pin):
         ip = self.internal_page
