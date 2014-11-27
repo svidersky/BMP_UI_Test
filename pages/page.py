@@ -18,3 +18,4 @@ class Page(object):
 
     def go_to_main(self):
         self.driver.get(self.base_url)
+

@@ -7,6 +7,7 @@ from BMP_UI_Test2.pages.internal_page import InternalPage
 from BMP_UI_Test2.pages.main_page import MainPage
 from BMP_UI_Test2.pages.list_page import ListPage
 from BMP_UI_Test2.pages.text_messages import TextMessages
+from BMP_UI_Test2.pages.actions_page import ActionsPage
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.expected_conditions import *
@@ -16,12 +17,13 @@ import time
 class Application(object):
     def __init__(self, driver, base_url):
         driver.get(base_url)
-        self.wait = WebDriverWait(driver, 5)
+        self.wait = WebDriverWait(driver, 10)
         self.page = Page(driver, base_url)
         self.text_messages = TextMessages(driver, base_url)
         self.internal_page = InternalPage(driver, base_url)
         self.list_page = ListPage(driver, base_url)
         self.main_page = MainPage(driver, base_url)
+        self.actions_page = ActionsPage(driver, base_url)
 
     def login(self, user):
         lp = self.internal_page
@@ -122,4 +124,15 @@ class Application(object):
         ip.remember_error_field.send_keys(email_to_send_pin.email)
         ip.button_get_pin.click()
 
+    def show_user_info(self, user_info):
+        time.sleep(2)
+        ip = self.internal_page
+        ip.go_to_main()
+        time.sleep(2)
+        ap = self.actions_page
+        self.wait.until(presence_of_element_located((By.ID, "login")))
+        ap.login_field.click()
+        ap.login_field.send_keys(user_info.username)
+        ap.go_button.click()
+        assert self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(text(),'login: svid')]")))
 

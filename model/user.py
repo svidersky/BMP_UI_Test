@@ -13,8 +13,16 @@ class User(object):
         return cls(username="0000", password="0000", email="svidersky_old@no-spam.ws")
 
     @classmethod
+    def user_svidersky(cls):
+        return cls(username="svid", password="1111", email="svidersky.leonid@gmail.com")
+
+    @classmethod
     def user_0000_pin_1111(cls):
         return cls(username="0000", password="1111", email="svidersky_new@no-spam.ws")
+
+    @classmethod
+    def user_actions(cls):
+        return cls(username="wDof77tE", password="3951")
 
     @classmethod
     def random(cls):
