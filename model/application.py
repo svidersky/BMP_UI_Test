@@ -89,6 +89,7 @@ class Application(object):
 
     def add_product(self, product):
         lp = self.list_page
+        self.wait.until(presence_of_all_elements_located)
         self.wait.until(presence_of_element_located((By.ID, "input_product")))
         lp.add_product_field.click()
         lp.add_product_field.send_keys(product.name + " " + product.amount)
@@ -108,20 +109,21 @@ class Application(object):
         lp.button_add_list.click()
         self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-list-name')]")))
         self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-list-empty')]")))
+        time.sleep(1)
 
     def rename_list(self):
         lp = self.list_page
         self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-list-name')]")))
         self.move_to_element(self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-list-name')]"))))
         lp.button_edit_list.click()
-        lp.input_list_name.send_keys(Keys.COMMAND, "a")
-        lp.input_list_name.send_keys(Keys.DELETE)
-        lp.input_list_name.send_keys("Test list")
+        lp.input_edit_list.send_keys(Keys.COMMAND, "a")
+        lp.input_edit_list.send_keys(Keys.DELETE)
+        lp.input_edit_list.send_keys("Test list")
         lp.add_product_field.send_keys(Keys.RETURN)
 
     def delete_list(self):
         lp = self.list_page
-        self.move_to_element(self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-list-name') and contains(text(),'Список покупок')]"))))
+        self.move_to_element(self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-list-name') and contains(text(),'Test list')]"))))
         self.wait.until(presence_of_element_located((By.ID, "button_delete_list")))
         lp.button_delete_list.click()
 

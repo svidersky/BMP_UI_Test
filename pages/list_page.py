@@ -30,5 +30,5 @@ class ListPage(InternalPage):
         return self.driver.find_element_by_id("button_edit_list")
 
     @property
-    def input_list_name(self):
-        return self.driver.find_element_by_id("")
+    def input_edit_list(self):
+        return self.driver.find_element_by_id("input_edit_list")
