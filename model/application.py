@@ -101,6 +101,7 @@ class Application(object):
         lp = self.list_page
         self.wait.until(presence_of_element_located((By.ID, "input_product")))
         self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),"+ product.name +")]"))).click()
+        time.sleep(2)
         assert self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),"+ product.name +")]")))
 
     def create_list(self):

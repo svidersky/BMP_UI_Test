@@ -1,9 +1,10 @@
 from model.user import User
 from model.product import Product
 
+def login(app):
+    app.login(User.user_0000())
 
 def test_create_list(app):
-    app.login(User.user_0000())
     app.create_list()
 
 def test_rename_list(app):
