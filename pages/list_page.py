@@ -20,7 +20,6 @@ class ListPage(InternalPage):
     def button_add_list(self):
         return self.driver.find_element_by_id("button_add_list")
 
-
     @property
     def button_add_list(self):
         return self.driver.find_element_by_id("button_add_list")
@@ -32,3 +31,7 @@ class ListPage(InternalPage):
     @property
     def input_edit_list(self):
         return self.driver.find_element_by_id("input_edit_list")
+
+    @property
+    def button_product_delete(self):
+        return self.driver.find_element_by_xpath("//div[contains(@class,'product-item-delete')]")

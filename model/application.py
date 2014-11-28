@@ -92,7 +92,7 @@ class Application(object):
         self.wait.until(presence_of_all_elements_located)
         self.wait.until(presence_of_element_located((By.ID, "input_product")))
         lp.add_product_field.click()
-        lp.add_product_field.send_keys(product.name + " " + product.amount)
+        lp.add_product_field.send_keys(product.name + ":" + product.amount)
         lp.add_product_field.send_keys(Keys.RETURN)
         lp.add_product_field.send_keys(Keys.RETURN)
         assert self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),"+ product.name +")]")))
@@ -101,8 +101,15 @@ class Application(object):
         lp = self.list_page
         self.wait.until(presence_of_element_located((By.ID, "input_product")))
         self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),"+ product.name +")]"))).click()
-        time.sleep(2)
+        time.sleep(3)
         assert self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),"+ product.name +")]")))
+
+    def delete_product(self, product):
+        lp = self.list_page
+        self.move_to_element(self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),"+ product.name +")]"))))
+        self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-delete')]")))
+        lp.button_product_delete.click()
+        time.sleep(5)
 
     def create_list(self):
         lp = self.list_page
