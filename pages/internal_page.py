@@ -120,3 +120,7 @@ class InternalPage(Page):
     @property
     def logibox_link_remember(self):
         return self.driver.find_element_by_id("logibox_link_remember")
+
+    @property
+    def pin_sent_div(self):
+        return self.driver.find_element_by_css_selector("div.block.sent")
