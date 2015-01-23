@@ -18,7 +18,7 @@ import time
 class Application(object):
     def __init__(self, driver, base_url):
         driver.get(base_url)
-        self.wait = WebDriverWait(driver, 15)
+        self.wait = WebDriverWait(driver, 5)
         self.page = Page(driver, base_url)
         self.text_messages = TextMessages(driver, base_url)
         self.internal_page = InternalPage(driver, base_url)
@@ -32,6 +32,10 @@ class Application(object):
         ac = self.action_chains
         ac.move_to_element(element)
         ac.perform()
+
+    def switch_to_alert(self):
+        ip = self.internal_page
+        ip.driver.switch_to.alert.accept()
 
     def login(self, user):
         lp = self.internal_page
@@ -131,9 +135,12 @@ class Application(object):
 
     def delete_list(self):
         lp = self.list_page
-        self.move_to_element(self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-list-name') and contains(text(),'Test list')]"))))
+        self.move_to_element(self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-list-name')]"))))
+        #                                                                            "and contains(text(),'Test list')]"))))
         self.wait.until(presence_of_element_located((By.ID, "button_delete_list")))
         lp.button_delete_list.click()
+        self.switch_to_alert()
+
 
     def change_pin(self, user_pin):
         ip = self.internal_page

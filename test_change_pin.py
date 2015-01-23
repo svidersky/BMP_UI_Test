@@ -15,3 +15,4 @@ def test_change_pin(app):
 def test_change_pin_back(app):
     app.change_pin(User.user_0000())
     app.logout()
+    app.remember_pin(User.user_0000())
