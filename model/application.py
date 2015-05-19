@@ -185,6 +185,7 @@ class Application(object):
         ip.editaccount_email_field.send_keys(Keys.DELETE)
         ip.editaccount_email_field.send_keys(user_email.email)
         ip.editaccountbox_button_save.click()
+        time.sleep(2)
 
     def remember_pin(self, email_to_send_pin):
         ip = self.internal_page
