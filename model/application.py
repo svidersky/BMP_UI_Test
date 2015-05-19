@@ -168,6 +168,8 @@ class Application(object):
         ip.editaccount_pin_field.send_keys(Keys.DELETE)
         ip.editaccount_pin_field.send_keys(user_pin.password)
         ip.editaccountbox_button_save.click()
+        time.sleep(2)
+# разобраться с ожиданиями загрузки страницы
 
     def close_account_window(self):
         ip = self.internal_page
