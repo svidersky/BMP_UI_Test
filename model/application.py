@@ -4,6 +4,7 @@
 from selenium.webdriver.common.keys import Keys
 from BMP_UI_Test2.pages.page import Page
 from BMP_UI_Test2.pages.internal_page import InternalPage
+from BMP_UI_Test2.pages.mobile_site import MobileSite
 from BMP_UI_Test2.pages.main_page import MainPage
 from BMP_UI_Test2.pages.list_page import ListPage
 from BMP_UI_Test2.pages.text_messages import TextMessages
@@ -18,10 +19,11 @@ import time
 class Application(object):
     def __init__(self, driver, base_url):
         driver.get(base_url)
-        self.wait = WebDriverWait(driver, 5)
+        self.wait = WebDriverWait(driver, 7)
         self.page = Page(driver, base_url)
         self.text_messages = TextMessages(driver, base_url)
         self.internal_page = InternalPage(driver, base_url)
+        self.mobile_site = MobileSite(driver, base_url)
         self.list_page = ListPage(driver, base_url)
         self.main_page = MainPage(driver, base_url)
         self.actions_page = ActionsPage(driver, base_url)
@@ -50,9 +52,24 @@ class Application(object):
         lp.password_field.send_keys(user.password)
         lp.login_button.click()
 
+    def login_m(self, user):
+        ms = self.mobile_site
+        self.wait.until(presence_of_element_located((By.ID, "auth_link")))
+        ms.auth_link.click()
+        ms.auth_login_field.send_keys(Keys.COMMAND, "a")
+        ms.auth_login_field.send_keys(Keys.DELETE)
+        ms.auth_login_field.send_keys(user.username)
+        ms.auth_pin_field.send_keys(Keys.COMMAND, "a")
+        ms.auth_pin_field.send_keys(Keys.DELETE)
+        ms.auth_pin_field.send_keys(user.password)
+        ms.auth_button.click()
+
     def login_successful(self, user):
         self.wait.until(presence_of_element_located((By.ID, "link_user_login")))
         assert user.username in self.internal_page.link_user_login.text
+
+    def login_successful_m(self, user):
+        assert self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@id,'footer_logout_link') and contains(text(),"+ user.username +")]")))
 
     def login_failed(self):
         if self.internal_page.login_base_error.text != "":
