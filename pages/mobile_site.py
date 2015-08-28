@@ -55,6 +55,10 @@ class MobileSite(Page):
         return self.driver.find_element_by_id("footer_logout_link")
 
     @property
+    def profile_logout_button(self):
+        return self.driver.find_element_by_id("profile_logout_button")
+
+    @property
     def list_manager_button(self):
         return self.driver.find_element_by_id("list_manager_button")
 
@@ -81,3 +85,7 @@ class MobileSite(Page):
     @property
     def remove_products_button(self):
         return self.driver.find_element_by_id("remove_products_button")
+
+    @property
+    def login_base_error(self):
+        return self.driver.find_element_by_id("login_base_error")

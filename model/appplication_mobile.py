@@ -53,3 +53,13 @@ class ApplicationMobile(object):
 
     def login_successful(self, user):
         assert self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@id,'footer_logout_link') and contains(text(),"+ user.username +")]")))
+
+    def login_failed(self):
+        if self.mobile_site.login_base_error.text != "":
+            assert self.internal_page.login_base_error.text != ""
+
+    def logout(self):
+        ms = self.mobile_site
+        ms.footer_logout_link.click()
+        ms.profile_logout_button.click()
+        self.wait.until(presence_of_element_located((By.ID, "auth_link")))

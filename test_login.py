@@ -8,8 +8,7 @@ def test_login_with_blank_fields(app):
     app.logout()
     app.login(User.null())
     app.login_failed()
-
-def test_login_with_invalid_credentials(app):
-    app.login(User.random())
-    app.login_failed()
-
+#
+# def test_login_with_invalid_credentials(app):
+#     app.login(User.random())
+#     app.login_failed()
