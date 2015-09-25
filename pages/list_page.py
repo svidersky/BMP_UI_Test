@@ -1,4 +1,4 @@
-from internal_page import InternalPage
+from BMP_UI_Test2.pages.internal_page import InternalPage
 
 
 class ListPage(InternalPage):

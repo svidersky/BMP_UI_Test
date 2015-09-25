@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from pages.page import Page
+from BMP_UI_Test2.pages.page import Page
 
 
 class MobileSite(Page):

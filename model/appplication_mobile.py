@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 
 from selenium.webdriver.common.keys import Keys
-from pages.page import Page
-from pages.internal_page import InternalPage
-from pages.mobile_site import MobileSite
-from pages.main_page import MainPage
-from pages.list_page import ListPage
-from pages.text_messages import TextMessages
-from pages.actions_page import ActionsPage
+from BMP_UI_Test2.pages.page import Page
+from BMP_UI_Test2.pages.internal_page import InternalPage
+from BMP_UI_Test2.pages.mobile_site import MobileSite
+from BMP_UI_Test2.pages.main_page import MainPage
+from BMP_UI_Test2.pages.list_page import ListPage
+from BMP_UI_Test2.pages.text_messages import TextMessages
+from BMP_UI_Test2.pages.actions_page import ActionsPage
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.expected_conditions import *
