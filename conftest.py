@@ -5,9 +5,9 @@ from selenium import webdriver
 
 
 def pytest_addoption(parser):
-    parser.addoption("--browser", action="store", default="firefox", help="browser type")
+    parser.addoption("--browser", action="store", default="chrome", help="browser type")
     parser.addoption("--base_url", action="store", default="http://buymeapie.com/", help="base URL")
-    parser.addoption("--client_type", action="store", default="mobile", help="client type")
+    parser.addoption("--client_type", action="store", default="desktop", help="client type")
 
 
 @pytest.fixture(scope="session")
