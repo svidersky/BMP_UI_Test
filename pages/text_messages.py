@@ -45,3 +45,7 @@ class TextMessages(Page):
     @property
     def right_login_wrong_pin_error(self):
         return u"Не верный"
+
+    @property
+    def pin_sent_to_email_text(self):
+        return u"PIN был выслан на указанный e-mail"

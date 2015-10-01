@@ -16,7 +16,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 import time
 
 
-class Application(object):
+class ApplicationDesktop(object):
     def __init__(self, driver, base_url):
         driver.get(base_url)
         self.wait = WebDriverWait(driver, 5)
@@ -52,24 +52,9 @@ class Application(object):
         lp.password_field.send_keys(user.password)
         lp.login_button.click()
 
-    def login_m(self, user):
-        ms = self.mobile_site
-        self.wait.until(presence_of_element_located((By.ID, "auth_link")))
-        ms.auth_link.click()
-        ms.auth_login_field.send_keys(Keys.COMMAND, "a")
-        ms.auth_login_field.send_keys(Keys.DELETE)
-        ms.auth_login_field.send_keys(user.username)
-        ms.auth_pin_field.send_keys(Keys.COMMAND, "a")
-        ms.auth_pin_field.send_keys(Keys.DELETE)
-        ms.auth_pin_field.send_keys(user.password)
-        ms.auth_button.click()
-
     def login_successful(self, user):
         self.wait.until(presence_of_element_located((By.ID, "link_user_login")))
         assert user.username in self.internal_page.link_user_login.text
-
-    def login_successful_m(self, user):
-        assert self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@id,'footer_logout_link') and contains(text(),"+ user.username +")]")))
 
     def login_failed(self):
         if self.internal_page.login_base_error.text != "":
@@ -158,7 +143,6 @@ class Application(object):
         lp.button_delete_list.click()
         self.switch_to_alert()
 
-
     def change_pin(self, user_pin):
         ip = self.internal_page
         self.wait.until(presence_of_element_located((By.ID, "link_user_login")))
@@ -205,17 +189,3 @@ class Application(object):
 
         except:
             assert self.internal_page.remember_error_error.text != ""
-
-
-    def show_user_info(self, user_info):
-        time.sleep(2)
-        ip = self.internal_page
-        ip.go_to_main()
-        time.sleep(2)
-        ap = self.actions_page
-        self.wait.until(presence_of_element_located((By.ID, "login")))
-        ap.login_field.click()
-        ap.login_field.send_keys(user_info.username)
-        ap.go_button.click()
-        assert self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(text(),'login: svid')]")))
-
