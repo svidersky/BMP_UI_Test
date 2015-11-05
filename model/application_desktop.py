@@ -41,9 +41,9 @@ class ApplicationDesktop(object):
 
     def login(self, user):
         lp = self.internal_page
-        self.wait.until(presence_of_element_located((By.ID, "header_button_signup")))
-        lp.header_button_signup.click()
-        lp.signupbox_link_login.click()
+        lp.go_to_main()
+        self.wait.until(presence_of_element_located((By.ID, "header_button_login")))
+        lp.header_button_login.click()
         lp.login_field.send_keys(Keys.COMMAND, "a")
         lp.login_field.send_keys(Keys.DELETE)
         lp.login_field.send_keys(user.username)
@@ -63,9 +63,11 @@ class ApplicationDesktop(object):
             assert self.internal_page.login_login_error.text != ""
         if self.internal_page.login_pin_error.text !="":
             assert self.internal_page.login_pin_error.text != ""
+        self.close_account_window()
 
     def signup(self, user):
         sp = self.internal_page
+        sp.go_to_main()
         sp.header_button_signup.click()
         sp.signup_login_field.send_keys(Keys.COMMAND, "a")
         sp.signup_login_field.send_keys(Keys.DELETE)
@@ -169,13 +171,11 @@ class ApplicationDesktop(object):
         ip.editaccount_email_field.send_keys(Keys.DELETE)
         ip.editaccount_email_field.send_keys(user_email.email)
         ip.editaccountbox_button_save.click()
-        time.sleep(2)
 
     def remember_pin(self, email_to_send_pin):
         ip = self.internal_page
-        self.wait.until(presence_of_element_located((By.ID, "header_button_signup")))
-        ip.header_button_signup.click()
-        ip.signupbox_link_login.click()
+        self.wait.until(presence_of_element_located((By.ID, "header_button_login")))
+        ip.header_button_login.click()
         self.wait.until(presence_of_element_located((By.ID, "logibox_link_remember")))
         ip.logibox_link_remember.click()
         self.wait.until(presence_of_element_located((By.ID, "remember_error")))
@@ -189,3 +189,4 @@ class ApplicationDesktop(object):
 
         except:
             assert self.internal_page.remember_error_error.text != ""
+        ip.rememberbox_close.click()
