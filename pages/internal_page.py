@@ -15,6 +15,10 @@ class InternalPage(Page):
         return self.driver.find_element_by_id("signupbox_link_login")
 
     @property
+    def header_button_login(self):
+        return self.driver.find_element_by_id("header_button_login")
+
+    @property
     def login_field(self):
         return self.driver.find_element_by_id("login_login")
 
@@ -66,6 +70,9 @@ class InternalPage(Page):
     def remember_error_error(self):
         return self.driver.find_element_by_id("remember_error_error")
 
+    @property
+    def rememberbox_close(self):
+        return self.driver.find_element_by_id("rememberbox_close")
 
     @property
     def signup_login_field(self):
