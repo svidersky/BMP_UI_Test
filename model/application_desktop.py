@@ -19,7 +19,7 @@ import time
 class ApplicationDesktop(object):
     def __init__(self, driver, base_url):
         driver.get(base_url)
-        self.wait = WebDriverWait(driver, 5)
+        self.wait = WebDriverWait(driver, 7)
         self.page = Page(driver, base_url)
         self.text_messages = TextMessages(driver, base_url)
         self.internal_page = InternalPage(driver, base_url)
@@ -92,6 +92,7 @@ class ApplicationDesktop(object):
 
 
     def logout(self):
+        self.wait.until(presence_of_element_located((By.ID, "link_user_login")))
         self.internal_page.link_user_login.click()
         self.internal_page.exit_button.click()
 
@@ -144,6 +145,7 @@ class ApplicationDesktop(object):
         self.wait.until(presence_of_element_located((By.ID, "button_delete_list")))
         lp.button_delete_list.click()
         self.switch_to_alert()
+        time.sleep(1)
 
     def change_pin(self, user_pin):
         ip = self.internal_page
@@ -154,8 +156,7 @@ class ApplicationDesktop(object):
         ip.editaccount_pin_field.send_keys(Keys.DELETE)
         ip.editaccount_pin_field.send_keys(user_pin.password)
         ip.editaccountbox_button_save.click()
-        time.sleep(2)
-# разобраться с ожиданиями загрузки страницы
+        time.sleep(3)
 
     def close_account_window(self):
         ip = self.internal_page
