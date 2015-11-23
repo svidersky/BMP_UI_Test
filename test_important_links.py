@@ -4,7 +4,7 @@ site_urls = [
     'http://buymeapie.com/ru/',
     'http://buymeapie.com/en/',
     'http://buymeapie.com/zh/',
-    'http://buymeapie.com/ja/',
+    'http://buymeapie.com/j/',
     'http://buymeapie.com/de/',
     'http://buymeapie.com/fr/',
     'http://buymeapie.com/nl/',
