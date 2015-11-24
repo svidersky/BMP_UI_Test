@@ -22,6 +22,25 @@ site_urls = [
     'http://buymeapie.com/terms-of-use',
     'http://buymeapie.com/privacy',
     'http://buymeapie.com/ru/job',
+    'http://m.buymeapie.com/lists',
+    'http://m.buymeapie.com/authorization',
+    'http://m.buymeapie.com/signup',
+    'http://m.buymeapie.com/remember_pin',
+    'http://m.buymeapie.com/ru/',
+    'http://m.buymeapie.com/en/',
+    'http://m.buymeapie.com/zh/',
+    'http://m.buymeapie.com/ja/',
+    'http://m.buymeapie.com/de/',
+    'http://m.buymeapie.com/fr/',
+    'http://m.buymeapie.com/nl/',
+    'http://m.buymeapie.com/es/',
+    'http://m.buymeapie.com/pt/',
+    'http://m.buymeapie.com/da/',
+    'http://m.buymeapie.com/sv/',
+    'http://m.buymeapie.com/it/',
+    'http://m.buymeapie.com/ru/about',
+    'http://m.buymeapie.com/ru/job',
+    'http://m.buymeapie.com/de/press'
 ]
  
 
