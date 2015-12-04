@@ -19,7 +19,7 @@ import time
 class Application(object):
     def __init__(self, driver, base_url):
         driver.get(base_url)
-        self.wait = WebDriverWait(driver, 5)
+        self.wait = WebDriverWait(driver, 7)
         self.page = Page(driver, base_url)
         self.text_messages = TextMessages(driver, base_url)
         self.internal_page = InternalPage(driver, base_url)
@@ -41,9 +41,9 @@ class Application(object):
 
     def login(self, user):
         lp = self.internal_page
-        self.wait.until(presence_of_element_located((By.ID, "header_button_signup")))
-        lp.header_button_signup.click()
-        lp.signupbox_link_login.click()
+        lp.go_to_main()
+        self.wait.until(presence_of_element_located((By.ID, "header_button_login")))
+        lp.header_button_login.click()
         lp.login_field.send_keys(Keys.COMMAND, "a")
         lp.login_field.send_keys(Keys.DELETE)
         lp.login_field.send_keys(user.username)
@@ -52,24 +52,9 @@ class Application(object):
         lp.password_field.send_keys(user.password)
         lp.login_button.click()
 
-    def login_m(self, user):
-        ms = self.mobile_site
-        self.wait.until(presence_of_element_located((By.ID, "auth_link")))
-        ms.auth_link.click()
-        ms.auth_login_field.send_keys(Keys.COMMAND, "a")
-        ms.auth_login_field.send_keys(Keys.DELETE)
-        ms.auth_login_field.send_keys(user.username)
-        ms.auth_pin_field.send_keys(Keys.COMMAND, "a")
-        ms.auth_pin_field.send_keys(Keys.DELETE)
-        ms.auth_pin_field.send_keys(user.password)
-        ms.auth_button.click()
-
     def login_successful(self, user):
         self.wait.until(presence_of_element_located((By.ID, "link_user_login")))
         assert user.username in self.internal_page.link_user_login.text
-
-    def login_successful_m(self, user):
-        assert self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@id,'footer_logout_link') and contains(text(),"+ user.username +")]")))
 
     def login_failed(self):
         if self.internal_page.login_base_error.text != "":
@@ -78,9 +63,11 @@ class Application(object):
             assert self.internal_page.login_login_error.text != ""
         if self.internal_page.login_pin_error.text !="":
             assert self.internal_page.login_pin_error.text != ""
+        self.close_account_window()
 
     def signup(self, user):
         sp = self.internal_page
+        sp.go_to_main()
         sp.header_button_signup.click()
         sp.signup_login_field.send_keys(Keys.COMMAND, "a")
         sp.signup_login_field.send_keys(Keys.DELETE)
@@ -105,6 +92,7 @@ class Application(object):
 
 
     def logout(self):
+        self.wait.until(presence_of_element_located((By.ID, "link_user_login")))
         self.internal_page.link_user_login.click()
         self.internal_page.exit_button.click()
 
@@ -157,7 +145,7 @@ class Application(object):
         self.wait.until(presence_of_element_located((By.ID, "button_delete_list")))
         lp.button_delete_list.click()
         self.switch_to_alert()
-
+        time.sleep(1)
 
     def change_pin(self, user_pin):
         ip = self.internal_page
@@ -168,8 +156,7 @@ class Application(object):
         ip.editaccount_pin_field.send_keys(Keys.DELETE)
         ip.editaccount_pin_field.send_keys(user_pin.password)
         ip.editaccountbox_button_save.click()
-        time.sleep(2)
-# разобраться с ожиданиями загрузки страницы
+        time.sleep(3)
 
     def close_account_window(self):
         ip = self.internal_page
@@ -185,13 +172,12 @@ class Application(object):
         ip.editaccount_email_field.send_keys(Keys.DELETE)
         ip.editaccount_email_field.send_keys(user_email.email)
         ip.editaccountbox_button_save.click()
-        time.sleep(2)
+        ip.go_to_main()
 
     def remember_pin(self, email_to_send_pin):
         ip = self.internal_page
-        self.wait.until(presence_of_element_located((By.ID, "header_button_signup")))
-        ip.header_button_signup.click()
-        ip.signupbox_link_login.click()
+        self.wait.until(presence_of_element_located((By.ID, "header_button_login")))
+        ip.header_button_login.click()
         self.wait.until(presence_of_element_located((By.ID, "logibox_link_remember")))
         ip.logibox_link_remember.click()
         self.wait.until(presence_of_element_located((By.ID, "remember_error")))
@@ -205,17 +191,4 @@ class Application(object):
 
         except:
             assert self.internal_page.remember_error_error.text != ""
-
-
-    def show_user_info(self, user_info):
-        time.sleep(2)
-        ip = self.internal_page
-        ip.go_to_main()
-        time.sleep(2)
-        ap = self.actions_page
-        self.wait.until(presence_of_element_located((By.ID, "login")))
-        ap.login_field.click()
-        ap.login_field.send_keys(user_info.username)
-        ap.go_button.click()
-        assert self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(text(),'login: svid')]")))
-
+        ip.rememberbox_close.click()
