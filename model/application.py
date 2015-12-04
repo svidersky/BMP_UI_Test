@@ -185,10 +185,9 @@ class Application(object):
         ip.remember_error_field.send_keys(email_to_send_pin.email)
         ip.button_get_pin.click()
         # не работает ожидание, так как, видимо, элемент уже есть в доме # self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'block sent') and contains(text(),'PIN был выслан на указанный e-mail')]")))
-        time.sleep(1)
-        try:
+        time.sleep(2)
+        if self.text_messages.pin_sent_to_email_text in ip.pin_sent_div.text:
             assert self.text_messages.pin_sent_to_email_text in ip.pin_sent_div.text
-
-        except:
+        elif self.internal_page.remember_error_error.text != "":
             assert self.internal_page.remember_error_error.text != ""
         ip.rememberbox_close.click()
