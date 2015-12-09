@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 class Product(object):
+    '''
+    Products to interact with in a shopping list
+    '''
 
     def __init__(self, name="", amount="", color=""):
         self.name = name

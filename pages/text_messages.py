@@ -5,7 +5,9 @@ from pages.page import Page
 
 
 class TextMessages(Page):
-
+    '''
+    Localized texts for asserts
+    '''
     @property
     def login_check_pin_text(self):
         return u"Проверьте логин и PIN и попробуйте еще раз."

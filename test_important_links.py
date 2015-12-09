@@ -1,3 +1,8 @@
+"""
+Test important links status codes
+"""
+
+
 import urllib, socket
  
 site_urls = [
@@ -45,6 +50,12 @@ site_urls = [
  
 
 def check_pages(pages):
+    '''
+    Check specified urls status codes
+    :param pages:
+    :return:
+    :exception: if status code is not 200 and 301
+    '''
     try:
         for page_url in pages:
             code = urllib.urlopen(page_url).getcode()

@@ -5,7 +5,9 @@ from pages.page import Page
 
 
 class MobileSite(Page):
-
+    """
+    Elements' ids that are located in mobile lists' management section
+    """
     @property
     def auth_link(self):
         return self.driver.find_element_by_id("auth_link")

@@ -5,7 +5,9 @@ from pages.page import Page
 
 
 class InternalPage(Page):
-
+    """
+    Elements' ids that are located in every page of the site
+    """
     @property
     def header_button_signup(self):
         return self.driver.find_element_by_id("header_button_signup")

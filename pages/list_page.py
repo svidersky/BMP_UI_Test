@@ -2,7 +2,9 @@ from internal_page import InternalPage
 
 
 class ListPage(InternalPage):
-
+    """
+    Elements' ids that are located in lists' management section
+    """
     @property
     def add_product_field(self):
         return self.driver.find_element_by_id("input_product")

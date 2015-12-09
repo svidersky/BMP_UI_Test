@@ -4,6 +4,9 @@ from selenium.webdriver.support.expected_conditions import *
 
 
 class Page(object):
+    '''
+    Main class for pages. Contains driver, base url, webdriver waiting
+    '''
     def __init__(self, driver, base_url):
         self.driver = driver
         self.base_url = base_url

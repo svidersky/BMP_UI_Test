@@ -1,14 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+Application model with test's steps
+
+"""
+
 from selenium.webdriver.common.keys import Keys
 from pages.page import Page
 from pages.internal_page import InternalPage
 from pages.mobile_site import MobileSite
-from pages.main_page import MainPage
 from pages.list_page import ListPage
 from pages.text_messages import TextMessages
-from pages.actions_page import ActionsPage
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.expected_conditions import *
@@ -25,21 +28,41 @@ class Application(object):
         self.internal_page = InternalPage(driver, base_url)
         self.mobile_site = MobileSite(driver, base_url)
         self.list_page = ListPage(driver, base_url)
-        self.main_page = MainPage(driver, base_url)
-        self.actions_page = ActionsPage(driver, base_url)
         self.action_chains = ActionChains(driver)
 
 
     def move_to_element(self, element):
+        '''
+        Move a pointer to an element
+        :param element:
+        :return:
+        '''
         ac = self.action_chains
         ac.move_to_element(element)
         ac.perform()
 
     def switch_to_alert(self):
+        '''
+        Switch to alert and accept it
+        '''
         ip = self.internal_page
         ip.driver.switch_to.alert.accept()
 
+    def close_account_window(self):
+        '''
+        Close account form
+        :return:
+        '''
+        ip = self.internal_page
+        self.wait.until(presence_of_element_located((By.ID, "loginbox_close")))
+        ip.loginbox_close.click()
+
     def login(self, user):
+        '''
+        Log in with the specified user's credentials
+        :param user:
+        :return:
+        '''
         lp = self.internal_page
         lp.go_to_main()
         self.wait.until(presence_of_element_located((By.ID, "header_button_login")))
@@ -53,10 +76,21 @@ class Application(object):
         lp.login_button.click()
 
     def login_successful(self, user):
+        '''
+        Check the specified user is logged in successfully
+        :param user:
+        :return:
+        :exception: if user did not log in
+        '''
         self.wait.until(presence_of_element_located((By.ID, "link_user_login")))
         assert user.username in self.internal_page.link_user_login.text
 
     def login_failed(self):
+        '''
+        Check errors in a login form
+        :return:
+        :exception: if errors do not appear
+        '''
         if self.internal_page.login_base_error.text != "":
             assert self.internal_page.login_base_error.text != ""
         if self.internal_page.login_login_error.text != "":
@@ -66,6 +100,12 @@ class Application(object):
         self.close_account_window()
 
     def signup(self, user):
+        '''
+        Sign up with the specified user
+        :param user:
+        :return:
+        :exception: if user did not sign up
+        '''
         sp = self.internal_page
         sp.go_to_main()
         sp.header_button_signup.click()
@@ -92,11 +132,21 @@ class Application(object):
 
 
     def logout(self):
+        '''
+        Log out
+        :return:
+        '''
         self.wait.until(presence_of_element_located((By.ID, "link_user_login")))
         self.internal_page.link_user_login.click()
         self.internal_page.exit_button.click()
 
     def add_product(self, product):
+        '''
+        Add the specified product to a current list
+        :param product:
+        :return:
+        :exception: if the product does not appear in a shopping list
+        '''
         lp = self.list_page
         self.wait.until(presence_of_all_elements_located)
         self.wait.until(presence_of_element_located((By.ID, "input_product")))
@@ -107,6 +157,12 @@ class Application(object):
         assert self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),"+ product.name +")]")))
 
     def buy_product(self, product):
+        '''
+        Buy the specified product in a shopping list
+        :param product:
+        :return:
+        :exception: if product does not appear in a shopping list
+        '''
         lp = self.list_page
         self.wait.until(presence_of_element_located((By.ID, "input_product")))
         self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),"+ product.name +")]"))).click()
@@ -114,6 +170,11 @@ class Application(object):
         assert self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),"+ product.name +")]")))
 
     def delete_product(self, product):
+        '''
+        Delete the specified product in a shopping list
+        :param product:
+        :return:
+        '''
         lp = self.list_page
         self.move_to_element(self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),"+ product.name +")]"))))
         self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-delete')]")))
@@ -121,6 +182,10 @@ class Application(object):
         time.sleep(5)
 
     def create_list(self):
+        '''
+        Create a new shopping list
+        :return:
+        '''
         lp = self.list_page
         self.wait.until(presence_of_element_located((By.ID, "button_add_list")))
         lp.button_add_list.click()
@@ -129,6 +194,10 @@ class Application(object):
         time.sleep(1)
 
     def rename_list(self):
+        '''
+        Rename active list
+        :return:
+        '''
         lp = self.list_page
         self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-list-name')]")))
         self.move_to_element(self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-list-name')]"))))
@@ -139,6 +208,10 @@ class Application(object):
         lp.add_product_field.send_keys(Keys.RETURN)
 
     def delete_list(self):
+        '''
+        Delete active list
+        :return:
+        '''
         lp = self.list_page
         self.move_to_element(self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-list-name')]"))))
         #                                                                            "and contains(text(),'Test list')]"))))
@@ -148,6 +221,11 @@ class Application(object):
         time.sleep(1)
 
     def change_pin(self, user_pin):
+        '''
+        Change current pin to a specified one
+        :param user_pin:
+        :return:
+        '''
         ip = self.internal_page
         self.wait.until(presence_of_element_located((By.ID, "link_user_login")))
         self.internal_page.link_user_login.click()
@@ -158,12 +236,13 @@ class Application(object):
         ip.editaccountbox_button_save.click()
         time.sleep(3)
 
-    def close_account_window(self):
-        ip = self.internal_page
-        self.wait.until(presence_of_element_located((By.ID, "loginbox_close")))
-        ip.loginbox_close.click()
 
     def change_email(self, user_email):
+        '''
+        Change current email to a specified one
+        :param user_email:
+        :return:
+        '''
         ip = self.internal_page
         self.wait.until(presence_of_element_located((By.ID, "link_user_login")))
         self.internal_page.link_user_login.click()
@@ -175,6 +254,12 @@ class Application(object):
         ip.go_to_main()
 
     def remember_pin(self, email_to_send_pin):
+        '''
+        Send an email with recovered pin to a specified email
+        :param email_to_send_pin:
+        :return:
+        :exception: if an email was not sent
+        '''
         ip = self.internal_page
         self.wait.until(presence_of_element_located((By.ID, "header_button_login")))
         ip.header_button_login.click()
