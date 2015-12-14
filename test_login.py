@@ -32,6 +32,5 @@ def test_login_with_invalid_credentials(app):
     :param app:
     :return:
     '''
-    app.close_account_window()
     app.login(User.random())
     app.login_failed()
