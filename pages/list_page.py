@@ -1,18 +1,13 @@
 from internal_page import InternalPage
-
+from model.elements_ids import *
 
 class ListPage(InternalPage):
     """
     Elements' ids that are located in lists' management section
     """
     @property
-    def add_product_field(self):
-        return self.driver.find_element_by_id("input_product")
-
-
-    @property
-    def test_product(self):
-        return self.driver.find_element_by_id("//div[contains(@class,'product-item-title') and contains(text(),'Test')]")
+    def field_add_product(self):
+        return self.driver.find_element_by_id(input_product_id)
 
     @property
     def button_delete_list(self):
@@ -33,7 +28,3 @@ class ListPage(InternalPage):
     @property
     def input_edit_list(self):
         return self.driver.find_element_by_id("input_edit_list")
-
-    @property
-    def button_product_delete(self):
-        return self.driver.find_element_by_xpath("//div[contains(@class,'product-item-delete')]")

@@ -16,6 +16,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.expected_conditions import *
 from selenium.webdriver.common.action_chains import ActionChains
+from model.elements_ids import *
 import time
 
 
@@ -30,6 +31,27 @@ class Application(object):
         self.list_page = ListPage(driver, base_url)
         self.action_chains = ActionChains(driver)
 
+
+    def wait_for_element_by_id(self, element_id):
+        '''
+        Wait for the specified element's id on a page
+        :param element_id:
+        :return:
+        :exception: If element is not found
+        '''
+        assert self.wait.until(presence_of_element_located((By.ID, element_id)))
+
+    def wait_for_element_by_xpath(self, class_name, text_to_check):
+        '''
+        Wait for the specified element's xpath on a page. Xpath requires class name and text of this element.
+        :param class_name:
+        :param text_to_check:
+        :return:
+        :exception: If element is not found
+        '''
+        element_xpath = "//div[contains(@class,\'" + class_name + "\') and contains(text(),\'" + text_to_check + "\')]"
+        element = self.wait.until(presence_of_element_located((By.XPATH, element_xpath)))
+        assert element
 
     def move_to_element(self, element):
         '''
@@ -145,16 +167,16 @@ class Application(object):
         Add the specified product to a current list
         :param product:
         :return:
-        :exception: if the product does not appear in a shopping list
         '''
         lp = self.list_page
-        self.wait.until(presence_of_all_elements_located)
-        self.wait.until(presence_of_element_located((By.ID, "input_product")))
-        lp.add_product_field.click()
-        lp.add_product_field.send_keys(product.name + ":" + product.amount)
-        lp.add_product_field.send_keys(Keys.RETURN)
-        lp.add_product_field.send_keys(Keys.RETURN)
-        assert self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),"+ product.name +")]")))
+        #self.wait.until(presence_of_element_located((By.ID, "input_product")))
+        # self.wait_for_element_by_id(input_product_id)
+        # lp.field_add_product.click()
+        # lp.field_add_product.send_keys(product.name + ":" + product.amount)
+        # lp.field_add_product.send_keys(Keys.RETURN)
+        # lp.field_add_product.send_keys(Keys.RETURN)
+        #assert self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),'Jksdfjkdsfhjsdfhh')]")))
+        self.wait_for_element_by_xpath(product_item_title_class, '1234567891113151719')
 
     def buy_product(self, product):
         '''
@@ -168,18 +190,6 @@ class Application(object):
         self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),"+ product.name +")]"))).click()
         time.sleep(3)
         assert self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),"+ product.name +")]")))
-
-    def delete_product(self, product):
-        '''
-        Delete the specified product in a shopping list
-        :param product:
-        :return:
-        '''
-        lp = self.list_page
-        self.move_to_element(self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),"+ product.name +")]"))))
-        self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-delete')]")))
-        lp.button_product_delete.click()
-        time.sleep(5)
 
     def create_list(self):
         '''
@@ -205,7 +215,7 @@ class Application(object):
         lp.input_edit_list.send_keys(Keys.COMMAND, "a")
         lp.input_edit_list.send_keys(Keys.DELETE)
         lp.input_edit_list.send_keys("Test list")
-        lp.add_product_field.send_keys(Keys.RETURN)
+        lp.input_edit_list.send_keys(Keys.RETURN)
 
     def delete_list(self):
         '''
