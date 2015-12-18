@@ -169,14 +169,12 @@ class Application(object):
         :return:
         '''
         lp = self.list_page
-        #self.wait.until(presence_of_element_located((By.ID, "input_product")))
-        # self.wait_for_element_by_id(input_product_id)
-        # lp.field_add_product.click()
-        # lp.field_add_product.send_keys(product.name + ":" + product.amount)
-        # lp.field_add_product.send_keys(Keys.RETURN)
-        # lp.field_add_product.send_keys(Keys.RETURN)
-        #assert self.wait.until(presence_of_element_located((By.XPATH, "//div[contains(@class,'product-item-title') and contains(text(),'Jksdfjkdsfhjsdfhh')]")))
-        self.wait_for_element_by_xpath(product_item_title_class, '1234567891113151719')
+        self.wait_for_element_by_id(input_product_id)
+        lp.field_add_product.click()
+        lp.field_add_product.send_keys(product.name + ":" + product.amount)
+        lp.field_add_product.send_keys(Keys.RETURN)
+        lp.field_add_product.send_keys(Keys.RETURN)
+        self.wait_for_element_by_xpath(product_item_title_class, product.name)
 
     def buy_product(self, product):
         '''
