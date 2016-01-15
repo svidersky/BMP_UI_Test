@@ -15,6 +15,7 @@ def pytest_addoption(parser):
     '''
     parser.addoption("--browser", action="store", default="firefox", help="browser type")
     parser.addoption("--base_url", action="store", default="http://buymeapie.com/ru/press", help="base URL")
+    parser.addoption("--run_all", action="store_true", help="run all tests")
 
 
 @pytest.fixture(scope="session")
